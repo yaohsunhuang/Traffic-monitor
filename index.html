@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Monitor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .answer {
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .answer.correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .answer.wrong {
+            background-color: #F44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Traffic Monitor</h1>
+    <div id="quiz"></div>
+
+    <script>
+        const questions = [
+            {
+                question: "Traffic Monitor 反映了無線頻段的哪些狀況？",
+                answers: ["繁忙程度", "整體可用性", "同頻干擾", "以上皆是"],
+                correct: 3
+            },
+            {
+                question: "無線頻道的利用率百分比是如何表示的？",
+                answers: ["頻道擁擠度", "傳輸速度", "信號強度", "網路連線次數"],
+                correct: 0
+            },
+            {
+                question: "更高的頻道利用率百分比表示什麼？",
+                answers: ["頻道繁忙", "設備數量少", "訊號強度弱", "網路延遲低"],
+                correct: 0
+            },
+            {
+                question: "為了獲得最準確的頻道設置，有什麼建議？",
+                answers: ["頻道干擾少", "使用較長時間分析", "頻道利用率高", "以上皆是"],
+                correct: 3
+            },
+            {
+                question: "啟用 Traffic Monitor 會有什麼影響？",
+                answers: ["網路性能降低", "頻道利用率增加", "無影響", "網速提升"],
+                correct: 0
+            },
+            {
+                question: "Traffic Monitor 如何幫助了解無線環境？",
+                answers: ["顯示頻道利用率", "提供圖表化數據", "建議最佳頻道", "以上皆是"],
+                correct: 3
+            },
+            {
+                question: "如果無線路由器不支援頻道使用率參數，將如何顯示？",
+                answers: ["顯示無線頻道擁擠情形", "無法顯示", "顯示錯誤", "以上皆是"],
+                correct: 0
+            },
+            {
+                question: "建議的頻道利用率範圍是多少？",
+                answers: ["40%-50%", "30%-40%", "20%-30%", "50%-60%"],
+                correct: 0
+            },
+            {
+                question: "高頻道利用率如何影響延遲敏感的應用程式？",
+                answers: ["影響用戶體驗", "提升網速", "增加傳輸速度", "無影響"],
+                correct: 0
+            },
+            {
+                question: "Traffic Monitor 為 ASUS 路由器用戶提供什麼功能？",
+                answers: ["一鍵優化", "網速提升", "頻道選擇", "信號強化"],
+                correct: 0
+            },
+            {
+                question: "如果不使用 ASUS 路由器，應如何處理頻道建議？",
+                answers: ["使用分析工具", "手動設定", "諮詢專家", "以上皆是"],
+                correct: 3
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        function loadQuestion() {
+            const quizDiv = document.getElementById("quiz");
+            quizDiv.innerHTML = "";
+            const question = questions[currentQuestion];
+            const questionDiv = document.createElement("div");
+            questionDiv.className = "question";
+            questionDiv.innerText = question.question;
+            quizDiv.appendChild(questionDiv);
+
+            question.answers.forEach((answer, index) => {
+                const answerDiv = document.createElement("div");
+                answerDiv.className = "answer";
+                answerDiv.innerText = answer;
+                answerDiv.addEventListener("click", () => {
+                    if (index === question.correct) {
+                        answerDiv.classList.add("correct");
+                        setTimeout(() => {
+                            currentQuestion++;
+                            if (currentQuestion < questions.length) {
+                                loadQuestion();
+                            } else {
+                                quizDiv.innerHTML = "<h2>恭喜你完成所有題目！</h2>";
+                            }
+                        }, 1000);
+                    } else {
+                        answerDiv.classList.add("wrong");
+                    }
+                });
+                quizDiv.appendChild(answerDiv);
+            });
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
